@@ -50,7 +50,7 @@ namespace Fluent_API
 
         public FluentContext()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

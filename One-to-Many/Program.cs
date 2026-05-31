@@ -88,13 +88,13 @@ namespace One_to_Many
 
         public FluentContext()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Server=DESKTOP-G30VB0K\MSSQLSERVER01;Database=One_to_Many;Integrated Security=SSPI;TrustServerCertificate=true");
-            optionsBuilder.UseNpgsql("Host=postgres_db;Port=5432;Database=mydb;Username=admin;Password=secretpassword");
+            optionsBuilder.UseNpgsql("Host=postgres_db;Port=5432;Database=one-to-many;Username=admin;Password=secretpassword");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

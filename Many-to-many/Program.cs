@@ -86,12 +86,12 @@ namespace Many_to_many
 
         public LanguageContext()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-             optionsBuilder.UseNpgsql("Host=postgres_db;Port=5432;Database=mydb;Username=admin;Password=secretpassword");
+             optionsBuilder.UseNpgsql("Host=postgres_db;Port=5432;Database=many_to_many;Username=admin;Password=secretpassword");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
