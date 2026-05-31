@@ -65,7 +65,7 @@ namespace InheritanceTablePerHierarchy
 
         public StudentContext()
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
