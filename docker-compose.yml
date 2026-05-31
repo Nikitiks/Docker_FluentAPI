@@ -1,0 +1,128 @@
+services:
+  one-to-many:
+    build:
+      context: ./One-to-Many
+      dockerfile: Dockerfile
+    container_name: one-to-many
+    ports:
+      - "3000:5000"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+  many-to-many:
+    build:
+      context: ./Many-to-many
+      dockerfile: Dockerfile
+    container_name: many-to-many
+    ports:
+      - "3001:5000"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+  inheritance-table-per-type:
+    build:
+      context: ./InheritanceTablePerType
+      dockerfile: Dockerfile
+    container_name: inheritance-table-per-type
+    ports:
+      - "3002:5000"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+  inheritance-table-per-hierarchy:
+    build:
+      context: ./InheritanceTablePerHierarchy
+      dockerfile: Dockerfile
+    container_name: inheritance-table-per-hierarchy
+    ports:
+      - "3003:5000"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+  inheritance-table-per-class:
+    build:
+      context: ./InheritanceTablePerClass
+      dockerfile: Dockerfile
+    container_name: inheritance-table-per-class
+    ports:
+      - "3004:5000"
+    depends_on:
+      mssql_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+  fluent-api:
+    build:
+      context: ./Fluent API
+      dockerfile: Dockerfile
+    container_name: fluent-api
+    ports:
+      - "3005:5000"
+    depends_on:
+      mssql_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+  annotations:
+    build:
+      context:  ./Annotations
+      dockerfile: Dockerfile
+    container_name: annotations
+    ports:
+      - "3006:5000"
+    depends_on:
+      mssql_db:
+        condition: service_healthy
+    networks:
+      - myNetwork
+
+
+  mssql_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_db
+    env_file:
+      - .env
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssqldata:/var/opt/mssql
+    networks:
+      - myNetwork
+
+  postgres_db:
+    image: postgres:16
+    container_name: postgres_db
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U ${POSTGRES_USER}"]
+      retries: 5
+      interval: 5s
+    networks:
+      - myNetwork
+
+networks:
+  myNetwork: 
+    driver: bridge
+
+volumes:
+  pgdata:
+  mssqldata:
