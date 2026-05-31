@@ -9,6 +9,7 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
+    restart: on-failure
     networks:
       - myNetwork
 
@@ -22,6 +23,7 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
+    restart: on-failure
     networks:
       - myNetwork
 
@@ -35,6 +37,7 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
+    restart: on-failure
     networks:
       - myNetwork
 
@@ -48,6 +51,7 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
+    restart: on-failure
     networks:
       - myNetwork
 
